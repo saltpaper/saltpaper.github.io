@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/2 | Salt and Paper</title>
+  <title>吴恩达机器学习笔记1 -- 初始机器学习 | Salt and Paper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Salt and Paper">
-<meta property="og:url" content="http://yoursite.com/archives/2018/02/index.html">
+  <meta name="description" content="以下是吴恩达机器学习课程的个人笔记，对于学习的一种加强和巩固吧。 笔记主要也是按照视频课程的章节来分的，从上个月开始断断续续看这个视频，每一节视频都比较短，适合碎片化时间学习，但是如果只是看过，不再花时间消化，还是很容易遗忘的，所以先看视频，看完一章再回顾总结重点。  学习途径：可以通过coursera进行，并且可以获得证书(付费学习才可以)；  另一个是通过网易云课堂, 有中文字幕但不提供证书">
+<meta name="keywords" content="AI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="吴恩达机器学习笔记1 -- 初始机器学习">
+<meta property="og:url" content="http://yoursite.com/2018/06/10/MachineLearning1/index.html">
 <meta property="og:site_name" content="Salt and Paper">
+<meta property="og:description" content="以下是吴恩达机器学习课程的个人笔记，对于学习的一种加强和巩固吧。 笔记主要也是按照视频课程的章节来分的，从上个月开始断断续续看这个视频，每一节视频都比较短，适合碎片化时间学习，但是如果只是看过，不再花时间消化，还是很容易遗忘的，所以先看视频，看完一章再回顾总结重点。  学习途径：可以通过coursera进行，并且可以获得证书(付费学习才可以)；  另一个是通过网易云课堂, 有中文字幕但不提供证书">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/MachineLearning1/ml_category.png">
+<meta property="og:updated_time" content="2018-06-11T14:18:46.721Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Salt and Paper">
+<meta name="twitter:title" content="吴恩达机器学习笔记1 -- 初始机器学习">
+<meta name="twitter:description" content="以下是吴恩达机器学习课程的个人笔记，对于学习的一种加强和巩固吧。 笔记主要也是按照视频课程的章节来分的，从上个月开始断断续续看这个视频，每一节视频都比较短，适合碎片化时间学习，但是如果只是看过，不再花时间消化，还是很容易遗忘的，所以先看视频，看完一章再回顾总结重点。  学习途径：可以通过coursera进行，并且可以获得证书(付费学习才可以)；  另一个是通过网易云课堂, 有中文字幕但不提供证书">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/10/MachineLearning1/ml_category.png">
   
     <link rel="alternative" href="/atom.xml" title="Salt and Paper" type="application/atom+xml">
   
@@ -149,98 +156,178 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MachineLearning1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/11/iOS_vapor2/" class="archive-article-date">
-  	<time datetime="2018-02-11T09:08:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/11/iOS_vapor2/">Vapor： 开始一个新的工程</a>
+    <h1 class="article-title" itemprop="name">
+      吴恩达机器学习笔记1 -- 初始机器学习
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/06/10/MachineLearning1/" class="archive-article-date">
+  	<time datetime="2018-06-10T07:20:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>以下是吴恩达机器学习课程的个人笔记，对于学习的一种加强和巩固吧。 笔记主要也是按照视频课程的章节来分的，从上个月开始断断续续看这个视频，每一节视频都比较短，适合碎片化时间学习，但是如果只是看过，不再花时间消化，还是很容易遗忘的，所以先看视频，看完一章再回顾总结重点。<br>  <code>学习途径</code>：可以通过<a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="external">coursera</a>进行，并且可以获得证书(付费学习才可以)；<br>  另一个是通过<a href="http://study.163.com/course/courseMain.htm?courseId=1004570029" target="_blank" rel="external">网易云课堂</a>, 有中文字幕但不提供证书</p>
+</blockquote>
+<h3 id="1-什么是机器学习"><a href="#1-什么是机器学习" class="headerlink" title="1. 什么是机器学习"></a>1. 什么是机器学习</h3><p>  视频里提到两种定义，而 1998年, Tom Mitchell提出的更加现代化一些：</p>
+<blockquote>
+<p>A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.<br>  计算机程序从经验E中学习一些任务T和性能度量P,如果它的任务T通过P来衡量，那么在它的表现因经验E而提高。</p>
+</blockquote>
+<p>  例如，跳棋游戏<br>  经验E ： 程序与自己下几万次跳棋<br>  任务T ： 玩跳棋<br>  性能测量P ：与对手下跳棋时赢的概率</p>
+<h3 id="2-机器学习分类"><a href="#2-机器学习分类" class="headerlink" title="2. 机器学习分类"></a>2. 机器学习分类</h3><p>视频里对机器学习大体分为有监督学习[supervised learning]和无监督学习[unsupervised learning]两大类</p>
+<p><img src="/2018/06/10/MachineLearning1/ml_category.png" alt="ml_category"></p>
+<p>监督学习：就是用已知的例子(也就是标记过的数据)来训练机器，教它去做事情；<br>无监督学习：就是使用的数据是没有标记过的，即不知道要的输出结果是什么。这个过程只能默默的读取数据，让计算机自己寻找数据的模型和规律，其实就是让计算机自己学习的过程。</p>
+<p>对于监督学习中的两种方法的区别：<br>回归问题： 预测连续的输出值<br>分类问题： 预测离散值的输出</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AI</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/06/10/MachineLearning1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/09/iOS_vapor1/" class="archive-article-date">
-  	<time datetime="2018-02-09T06:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/25/iOS_CalculateFPS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS 开发中如何查看FPS</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/09/iOS_vapor1/">Vapor 安装篇</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -263,8 +350,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
