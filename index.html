@@ -152,6 +152,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ReactNative_1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/ReactNative_1/">React Native -- 躲过运行的坑</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/17/ReactNative_1/" class="archive-article-date">
+  	<time datetime="2018-10-17T10:52:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>因工作的原因从iOS native开始做React Native， 之前一点web的底子都没有， javascript也只是写过一两次， 算是从零开始学习。与原生开发比起来，除了同时要兼顾两个平台，并且把React Native的程序运行起来，都比原生的需要更多的步骤也会遇到更多问题。</p>
+</blockquote>
+<p>如何创建React Native的项目，可以查看官网文档：<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">React Native</a>。<br>现在假设你已经按照步骤可以运行起来一个刚创建的项目，但是可能你需要去运行比较复杂的project, 或是遇到iOS和Android只有一方可以成功的情况，亦或是昨天还可以运行，过了一晚就出现了error, 这里总结一些用到的方法：</p>
+<h5 id="1-最常用的几句命令行"><a href="#1-最常用的几句命令行" class="headerlink" title="1. 最常用的几句命令行"></a>1. 最常用的几句命令行</h5><p>首先最应该排除的以下这几种情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">watchman watch-del-all  // =&gt; 直到 root = [ ]这个中括号里面没有东西为止，多次command 这个命令就可以。</span><br><span class="line">rm -rf node_modules &amp;&amp; yarn  // 删除 node_modules，然后重新安装: yarn 或是 npm install</span><br><span class="line">yarn cache clean  //清除本地缓存</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-第一次运行iOS："><a href="#2-第一次运行iOS：" class="headerlink" title="2. 第一次运行iOS："></a>2. 第一次运行iOS：</h5><p>如果有cocoapod,需要先安装 cocoapod<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install cocoapods   // 安装</span><br><span class="line">cd ios   </span><br><span class="line">pod install                 // 安装iOS里面的需要的library</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-第一次安装到Android真机上"><a href="#3-第一次安装到Android真机上" class="headerlink" title="3. 第一次安装到Android真机上"></a>3. 第一次安装到Android真机上</h5><p>首先要到手机setting -&gt; 开启开发者选项。<br>然后遇到一个关于<code>Adb install failure</code>的问题，如下图<br><img src="/2018/10/17/ReactNative_1/rn_1_2.png" alt="Adb install failure"><br><a href="https://stackoverflow.com/questions/37641670/adb-install-failure-install-canceled-by-user?utm_medium=organic&amp;utm_source=google_rich_qa&amp;utm_campaign=google_rich_qa" target="_blank" rel="noopener">参考资料</a>， 最后我的处理是红米手机(RedMi)关闭 MIUI就可以了。(不同机型不同)</p>
+<h5 id="4-仅仅Android上出现："><a href="#4-仅仅Android上出现：" class="headerlink" title="4. 仅仅Android上出现："></a>4. 仅仅Android上出现：</h5><p><code>Installation error: INSTALL_FAILED_VERSION_DOWNGRADE</code>，产生这个问题是因为之前手机已经安装过同包名的应用<br><img src="/2018/10/17/ReactNative_1/rn_1_1.png" alt="INSTALL_FAILED_VERSION_DOWNGRADE"><br>最简单粗暴的就是删除后再安装啦！</p>
+<p>关于<code>adb not found</code> 问题<br>首先安装adb: 打开 Android Studio: Tools -&gt; SDK Manager -&gt; SDK Tools -&gt;  Android SDK Build-Tools(在此安装)<br>可以在路径：Users/$UserName/Library/Android/sdk/platform-tools 查看到adb, 然后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;$PATH:/Users/$UserName/Library/Android/sdk/platform-tools”    //放到root下的.bash_profile文件中</span><br><span class="line"></span><br><span class="line">//reload profile</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>( ~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次。默认情况下,设置一些环境变量,执行用户的.bashrc文件。)</p>
+<h5 id="5-仅仅iOS上出现的："><a href="#5-仅仅iOS上出现的：" class="headerlink" title="5. 仅仅iOS上出现的："></a>5. 仅仅iOS上出现的：</h5><p> 出现<code>No bundle URL present</code>,这个也是出现概率挺高的error:<br><img src="/2018/10/17/ReactNative_1/rn_1_3.png" alt="No bundle URL present"><br>处理方法： 重新yarn或是npm intall ,如果还不行： 找到 project路径里的 ios/build/Build 文件，删除 ‘Build’ folder, 再运行就可以了。</p>
+<p><img src="/2018/10/17/ReactNative_1/rn_1_4.png" alt="not found for architecture"><br>主要根据这个提示： “ The following build commands failed:<br>     Ld /Users/user/$projectName/ios/build/Build/Products/Debug-iphonesimulator/React/React.framework/React normal x86_64”<br>同上，找到 project路径里的 ios/build/Build 文件，删除 ‘Build’ folder, 再运行就可以了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ReactNative</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/17/ReactNative_1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ML_Ng_Week1_2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -345,17 +430,17 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>最近看了 <a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="external">ibireme</a>写的性能优化的文章，条理清晰，从图像显示原理讲起，从原理说明优化的方向，让许多的点连成了线，一步步变成一个自己的知识网络。今天就里面提到的FPS总结几点。</p>
+<p>最近看了 <a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="noopener">ibireme</a>写的性能优化的文章，条理清晰，从图像显示原理讲起，从原理说明优化的方向，让许多的点连成了线，一步步变成一个自己的知识网络。今天就里面提到的FPS总结几点。</p>
 </blockquote>
 <h3 id="什么是FPS"><a href="#什么是FPS" class="headerlink" title="什么是FPS"></a>什么是FPS</h3><p>FPS: Frame Per Second (一秒钟渲染多少帧 )<br>每秒钟帧数愈多，所显示的动作就会愈流畅，”FPS”也可以理解为刷新率（单位为Hz）</p>
-<h3 id="CADisplayLink"><a href="#CADisplayLink" class="headerlink" title="CADisplayLink"></a>CADisplayLink</h3><p>YYKit中的<a href="https://github.com/ibireme/YYText/blob/master/Demo/YYTextDemo/YYFPSLabel.m" target="_blank" rel="external">FPSLabel</a> 中用到了 CADisplayLink 来监视 CPU 的卡顿问题，看了代码后，自己想用swift 实现下。</p>
-<p> 首先查看<a href="https://developer.apple.com/documentation/quartzcore/cadisplaylink" target="_blank" rel="external">CADisplaylink的官方文档</a></p>
+<h3 id="CADisplayLink"><a href="#CADisplayLink" class="headerlink" title="CADisplayLink"></a>CADisplayLink</h3><p>YYKit中的<a href="https://github.com/ibireme/YYText/blob/master/Demo/YYTextDemo/YYFPSLabel.m" target="_blank" rel="noopener">FPSLabel</a> 中用到了 CADisplayLink 来监视 CPU 的卡顿问题，看了代码后，自己想用swift 实现下。</p>
+<p> 首先查看<a href="https://developer.apple.com/documentation/quartzcore/cadisplaylink" target="_blank" rel="noopener">CADisplaylink的官方文档</a></p>
 <blockquote>
 <p>CADisplaylink: A timer object that allows your application to synchronize its drawing to the refresh rate of the display.</p>
 </blockquote>
 <p>可以看出CADisplaylink 是一个计时器对象，允许应用程序使用这个对象将绘制与显示刷新频率同步。</p>
-<h4 id="1-如何使用CADisplaylink"><a href="#1-如何使用CADisplaylink" class="headerlink" title="1. 如何使用CADisplaylink"></a>1. 如何使用CADisplaylink</h4><p>然后查看相关属性方法，发现从iOS10之后增加/删除了一些属性，而且官方还给了如何使用CADisplaylink给了一段代码:<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func createDisplayLink() &#123;</div><div class="line">    let displaylink = CADisplayLink(target: self, selector: #selector(step))</div><div class="line"></div><div class="line">    displaylink.add(to: .current, forMode: .defaultRunLoopMode)</div><div class="line">&#125;</div><div class="line"></div><div class="line">func step(displaylink: CADisplayLink) &#123;</div><div class="line">    print(displaylink.timestamp)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="2-其中关于-实际帧率的计算，官方也给出了一个方法："><a href="#2-其中关于-实际帧率的计算，官方也给出了一个方法：" class="headerlink" title="2. 其中关于 实际帧率的计算，官方也给出了一个方法："></a>2. 其中关于 实际帧率的计算，官方也给出了一个方法：</h4> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// displaylink is a `CADisplayLink`</div><div class="line"></div><div class="line"><span class="built_in">let</span> actualFramesPerSecond = 1 / (displaylink.targetTimestamp - displaylink.timestamp)</div></pre></td></tr></table></figure>
+<h4 id="1-如何使用CADisplaylink"><a href="#1-如何使用CADisplaylink" class="headerlink" title="1. 如何使用CADisplaylink"></a>1. 如何使用CADisplaylink</h4><p>然后查看相关属性方法，发现从iOS10之后增加/删除了一些属性，而且官方还给了如何使用CADisplaylink给了一段代码:<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">func createDisplayLink() &#123;</span><br><span class="line">    let displaylink = CADisplayLink(target: self, selector: #selector(step))</span><br><span class="line"></span><br><span class="line">    displaylink.add(to: .current, forMode: .defaultRunLoopMode)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func step(displaylink: CADisplayLink) &#123;</span><br><span class="line">    print(displaylink.timestamp)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-其中关于-实际帧率的计算，官方也给出了一个方法："><a href="#2-其中关于-实际帧率的计算，官方也给出了一个方法：" class="headerlink" title="2. 其中关于 实际帧率的计算，官方也给出了一个方法："></a>2. 其中关于 实际帧率的计算，官方也给出了一个方法：</h4> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// displaylink is a `CADisplayLink`</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> actualFramesPerSecond = 1 / (displaylink.targetTimestamp - displaylink.timestamp)</span><br></pre></td></tr></table></figure>
 <p>因为targetTimestamp是从iOS10后引入的，网上很少用这个方法计算FPS的，首先要对timestamp和targetTimestamp的定义有所了解，他们两之差就是两帧之间的时间差</p>
 <blockquote>
 <p>timestamp: The time value associated with the last frame that was displayed.(已经显示的最后一帧)<br>targetTimestamp: The time value associated with the next frame that was displayed.(显示后的下一帧)</p>
@@ -445,9 +530,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>上一篇已经完成<a href="https://saltpaper.github.io/2018/02/09/iOS_vapor1/" target="_blank" rel="external">环境配置</a>，现在可以开始第一个vapor项目吧。</p>
+<p>上一篇已经完成<a href="https://saltpaper.github.io/2018/02/09/iOS_vapor1/" target="_blank" rel="noopener">环境配置</a>，现在可以开始第一个vapor项目吧。</p>
 </blockquote>
-<h3 id="1-创建项目"><a href="#1-创建项目" class="headerlink" title="1.  创建项目"></a>1.  创建项目</h3><p>选择一个目录下，建立新的文件夹，然后运行如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vapor new helloDemo</div></pre></td></tr></table></figure></p>
+<h3 id="1-创建项目"><a href="#1-创建项目" class="headerlink" title="1.  创建项目"></a>1.  创建项目</h3><p>选择一个目录下，建立新的文件夹，然后运行如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vapor new helloDemo</span><br></pre></td></tr></table></figure></p>
 <p>看到这个水滴就知道 ，创建成功<br><img src="/2018/02/11/iOS_vapor2/vapor2_create.png" alt="vapor2_create"></p>
 <p>然后查看项目目录，如下：<br><img src="/2018/02/11/iOS_vapor2/vapor2_content.png" alt="vapor2_content"></p>
 <p>工程文件结构大体如下：</p>
@@ -472,9 +557,9 @@
 ├── Resources （资源目录）
 │     └── Views （存放视图，比如 html 文件, leaf 文件）
 └── Package.swift （配置相关依赖）
-</code></pre><h3 id="2-编译，运行"><a href="#2-编译，运行" class="headerlink" title="2. 编译，运行"></a>2. 编译，运行</h3><p>然后进行编译，并运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> helloDemo  //在项目目录下</div><div class="line"></div><div class="line">vapor build</div><div class="line">vapor run serve</div></pre></td></tr></table></figure></p>
+</code></pre><h3 id="2-编译，运行"><a href="#2-编译，运行" class="headerlink" title="2. 编译，运行"></a>2. 编译，运行</h3><p>然后进行编译，并运行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> helloDemo  //在项目目录下</span><br><span class="line"></span><br><span class="line">vapor build</span><br><span class="line">vapor run serve</span><br></pre></td></tr></table></figure></p>
 <p>编译需要些时间，下载需要的库，可以在.build文件夹(隐藏文件夹)里看到对应的文件。<br>运行之后，如下<br><img src="/2018/02/11/iOS_vapor2/vapor2_run.png" alt="vapor2_run"></p>
-<p>然后,访问host (<a href="http://0.0.0.0:8080/" target="_blank" rel="external">http://0.0.0.0:8080/</a>)<br>可以查看  Routes.swift文件，里面已经设置好了一些访问路径，都可以试试。</p>
+<p>然后,访问host (<a href="http://0.0.0.0:8080/" target="_blank" rel="noopener">http://0.0.0.0:8080/</a>)<br>可以查看  Routes.swift文件，里面已经设置好了一些访问路径，都可以试试。</p>
 <blockquote>
 <p>这样一个简单的vapor工程就建立好了，这样就可以根据自己的需求添加功能了。</p>
 </blockquote>
@@ -552,22 +637,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>在过去的一年里，国外的 Mybridge 对将近 6000 个 Swift 开源库进行了筛选和比较，以受欢迎程度和新近度为标准，挑选出了在 2017 年 1 月至 12 月发布的前 30 个库或项目，而第一个就是<a href="https://github.com/vapor/vapor" target="_blank" rel="external">Vapor</a>.<br>Vapor是一个适用于 MacOS 和 Ubuntu 服务器端的 Swift Web 框架，对于iOS的开发者，可以尝试用Swift来编写后台，也是一次不错的尝试。</p>
+<p>在过去的一年里，国外的 Mybridge 对将近 6000 个 Swift 开源库进行了筛选和比较，以受欢迎程度和新近度为标准，挑选出了在 2017 年 1 月至 12 月发布的前 30 个库或项目，而第一个就是<a href="https://github.com/vapor/vapor" target="_blank" rel="noopener">Vapor</a>.<br>Vapor是一个适用于 MacOS 和 Ubuntu 服务器端的 Swift Web 框架，对于iOS的开发者，可以尝试用Swift来编写后台，也是一次不错的尝试。</p>
 </blockquote>
-<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><h3 id="1-安装Swift"><a href="#1-安装Swift" class="headerlink" title="1.  安装Swift"></a>1.  安装Swift</h3><p>提供两种方法：<br>     (1) 可以通过安装xcode8来安装swift3<br>     (2)安装Swiftenv，使用Swiftenv可以很轻松的安装Swift，并且可以在多个版本间切换，在终端里运行如下代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/kylef/swiftenv.git ~/.swiftenv</div></pre></td></tr></table></figure></p>
+<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><h3 id="1-安装Swift"><a href="#1-安装Swift" class="headerlink" title="1.  安装Swift"></a>1.  安装Swift</h3><p>提供两种方法：<br>     (1) 可以通过安装xcode8来安装swift3<br>     (2)安装Swiftenv，使用Swiftenv可以很轻松的安装Swift，并且可以在多个版本间切换，在终端里运行如下代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/kylef/swiftenv.git ~/.swiftenv</span><br></pre></td></tr></table></figure></p>
 <p>然后在bash文件中初始化Swiftenv，bash文件就是存放bash属性与一些设置的地方。在终端里使用如下命令打开bash文件:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ open ~/.bash_profile</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ open ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>open指令会使用TextEdit打开你的bash文件，若没有bash文件，使用如下指令创建它:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch ~/.bash_profile</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>打开bash文件后，复制如下命令，用来初始化Swiftenv。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexport SWIFTENV_ROOT=&quot;$HOME/.swiftenv&quot;</div><div class="line">export PATH=&quot;$SWIFTENV_ROOT/bin:$PATH&quot;</div><div class="line">eval &quot;$(swiftenv init -)&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexport SWIFTENV_ROOT=&quot;$HOME/.swiftenv&quot;</span><br><span class="line">export PATH=&quot;$SWIFTENV_ROOT/bin:$PATH&quot;</span><br><span class="line">eval &quot;$(swiftenv init -)&quot;</span><br></pre></td></tr></table></figure>
 <p>你的bash文件(在TextEdit中打开)中现在应该包含了这些命令。注意有些情况下bash文件可能包含其他命令。不要删掉之前的命令，在文件末端添加新的即可。</p>
 <h3 id="2-完整性检查"><a href="#2-完整性检查" class="headerlink" title="2. 完整性检查"></a>2. 完整性检查</h3><p>   Vapor需要合适的Swift版本才能正常启动，Vapor提供了一个shell脚本来用于检验完整性，执行如下命令来确保万事俱备:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -sL check.vapor.sh | bash</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -sL check.vapor.sh | bash</span><br></pre></td></tr></table></figure>
 <p>若显示出绿色箭头的emoji表情，就表示准备好安装Vapor了!<br><img src="/2018/02/09/iOS_vapor1/vapor1_check.png" alt="vapor1_check"></p>
 <h3 id="3-安装vapor"><a href="#3-安装vapor" class="headerlink" title="3. 安装vapor"></a>3. 安装vapor</h3><p>查找的之前的方式，安装vapor1.0的版本，如下，提示方法已经不能用了<br><img src="/2018/02/09/iOS_vapor1/vapor1_failure.png" alt="vapor1_failure"></p>
-<p>swift 3.1以后<a href="https://docs.vapor.codes/2.0/getting-started/install-on-macos/" target="_blank" rel="external">参考</a><br>前提是 已经安装好 homebrew, 然后运行下面命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">brew tap vapor/homebrew-tap</div><div class="line">brew update</div><div class="line">brew install vapor   //（安装了两次，网络问题又试了一次）</div></pre></td></tr></table></figure>
+<p>swift 3.1以后<a href="https://docs.vapor.codes/2.0/getting-started/install-on-macos/" target="_blank" rel="noopener">参考</a><br>前提是 已经安装好 homebrew, 然后运行下面命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew tap vapor/homebrew-tap</span><br><span class="line">brew update</span><br><span class="line">brew install vapor   //（安装了两次，网络问题又试了一次）</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/02/09/iOS_vapor1/vapor1_install.png" alt="vapor1_install"></p>
 
       
@@ -646,24 +731,28 @@
 <p> 现在UI设计经常涉及到Navigation Bar的变化，比如<code>Tableview的上下滑动</code>时，<code>VC之间的跳转</code>的时候。</p>
 </blockquote>
 <h3 id="Navigation-Bar-的一些基本属性"><a href="#Navigation-Bar-的一些基本属性" class="headerlink" title="Navigation Bar 的一些基本属性"></a>Navigation Bar 的一些基本属性</h3><h4 id="1-backgroundColor"><a href="#1-backgroundColor" class="headerlink" title="1.  backgroundColor"></a>1.  <strong>backgroundColor</strong></h4><p>UIView类的属性，也是设置Navigation Bar时，我们最先会考虑到的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.navigationController?.navigationBar.backgroundColor = UIColor.yellow</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationController?.navigationBar.backgroundColor = UIColor.yellow</span><br></pre></td></tr></table></figure>
 <p>运行效果如下：</p>
-<div align="center"><br><img src="/2017/12/25/iOS_NavigationBar1/bar.backgroundColor_result1.png" alt="bar.backgroundColor_result1"><br></div>
+<div align="center">
+![bar.backgroundColor_result1](iOS_NavigationBar1/bar.backgroundColor_result1.png)
+</div>
 
 <p><br><br>看到效果时很明显知道这不是我们本来设置的颜色，而更像是上面加了一层模糊效果，这是可以用Xcode里面的Debug View Hierarchy看看具体的结构：</p>
 <p><img src="/2017/12/25/iOS_NavigationBar1/bar.backgroundColor_1.png" alt="bar.backgroundColor_1"></p>
-<p>当加上下面的代码：效果又会有很大的不同<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.navigationController?.navigationBar.isTranslucent = false</div></pre></td></tr></table></figure></p>
+<p>当加上下面的代码：效果又会有很大的不同<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationController?.navigationBar.isTranslucent = false</span><br></pre></td></tr></table></figure></p>
 <p><img src="/2017/12/25/iOS_NavigationBar1/bar.backgroundColor_2.png" alt="bar.backgroundColor_2"></p>
-<p><br></p>
+<p>&lt;/br&gt;</p>
 <h4 id="2-背景图-setBackgroundImage-forBarMetrics"><a href="#2-背景图-setBackgroundImage-forBarMetrics" class="headerlink" title="2.  背景图(setBackgroundImage:forBarMetrics:)"></a>2.  <strong>背景图(setBackgroundImage:forBarMetrics:)</strong></h4><p>给导航栏添加特定的图片：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: &quot;bg_view&quot;), for: .default)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationController?.navigationBar.setBackgroundImage(UIImage.init(named: &quot;bg_view&quot;), for: .default)</span><br></pre></td></tr></table></figure>
 <p>isTranslucent 不同时的效果图<br><img src="/2017/12/25/iOS_NavigationBar1/bar_backgroundImage.png" alt="bar_backgroundImage"></p>
 <p>可能会有些奇怪，为什么<code>isTranslucent = true</code>时，有些透明的效果, 查看层次结构，发现alpha &lt; 1.0，如图： (详看 <code>第3部分:isTranslucent</code>)<br><img src="/2017/12/25/iOS_NavigationBar1/bar.backgroundImage_hierarchy.png" alt="bar.backgroundImage_hierarchy"></p>
 <p>如果仅仅想不透明而将<code>isTranslucent 设置为 false</code>，可能在vc跳转中出现如下的问题：（如何解决，下一篇详述）</p>
-<div align="center"><br><img src="/2017/12/25/iOS_NavigationBar1/bar.backgroundImage.translucentFalse.gif" alt="bar.backgroundImage.translucentFalse"><br></div>
+<div align="center">
+![bar.backgroundImage.translucentFalse](iOS_NavigationBar1/bar.backgroundImage.translucentFalse.gif)
+</div>
 
-<p>这个属性最常用的应该是，设置<code>透明背景</code>时<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)</div></pre></td></tr></table></figure></p>
-<h4 id="3-isTranslucent"><a href="#3-isTranslucent" class="headerlink" title="3.  isTranslucent"></a>3.  <strong>isTranslucent</strong></h4><p>设置Navigation Bar是否为半透明的；默认为<code>true</code>.<br>可参考<a href="https://developer.apple.com/documentation/uikit/uinavigationbar/1624928-istranslucent" target="_blank" rel="external">Apple开发文档:</a></p>
+<p>这个属性最常用的应该是，设置<code>透明背景</code>时<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-isTranslucent"><a href="#3-isTranslucent" class="headerlink" title="3.  isTranslucent"></a>3.  <strong>isTranslucent</strong></h4><p>设置Navigation Bar是否为半透明的；默认为<code>true</code>.<br>可参考<a href="https://developer.apple.com/documentation/uikit/uinavigationbar/1624928-istranslucent" target="_blank" rel="noopener">Apple开发文档:</a></p>
 <blockquote>
 <p>The default value is true. If the navigation bar has a custom background image, the default is true if any pixel of the image has an alpha value of less than 1.0, and false otherwise.<br>If you set this property to true on a navigation bar with an opaque custom background image, the navigation bar applies a system-defined opacity of less than 1.0 to the image.<br>If you set this property to false on a navigation bar with a translucent custom background image, the navigation bar provides an opaque background for the image using black if the navigation bar has black style, white if the navigation bar has default, or the navigation bar’s barTintColor if a custom value is defined.</p>
 </blockquote>
@@ -675,17 +764,19 @@
 <blockquote>
 <p>所以： <strong>isTranslucent会根据UINavigationBar设置的自定义的背景图片，去判定是否为背景图添加透明度！</strong></p>
 </blockquote>
-<p><br></p>
-<h4 id="4-barTintColor"><a href="#4-barTintColor" class="headerlink" title="4.  barTintColor"></a>4.  <strong>barTintColor</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.navigationController?.navigationBar.barTintColor = UIColor.yellow</div></pre></td></tr></table></figure>
-<h5 id="1-只设置barTintColor-默认-isTranslucent-true-，效果图如下："><a href="#1-只设置barTintColor-默认-isTranslucent-true-，效果图如下：" class="headerlink" title="(1) 只设置barTintColor( 默认 isTranslucent = true)，效果图如下："></a>(1) 只设置barTintColor( 默认 isTranslucent = true)，效果图如下：</h5><div align="center"><br><img src="/2017/12/25/iOS_NavigationBar1/barTintColor_result1.png" alt="barTintColor_result1"><br></div>
+<p>&lt;/br&gt;</p>
+<h4 id="4-barTintColor"><a href="#4-barTintColor" class="headerlink" title="4.  barTintColor"></a>4.  <strong>barTintColor</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationController?.navigationBar.barTintColor = UIColor.yellow</span><br></pre></td></tr></table></figure>
+<h5 id="1-只设置barTintColor-默认-isTranslucent-true-，效果图如下："><a href="#1-只设置barTintColor-默认-isTranslucent-true-，效果图如下：" class="headerlink" title="(1) 只设置barTintColor( 默认 isTranslucent = true)，效果图如下："></a>(1) 只设置barTintColor( 默认 isTranslucent = true)，效果图如下：</h5><div align="center">
+![barTintColor_result1](iOS_NavigationBar1/barTintColor_result1.png)
+</div>
 
 <p>可以看到设置的颜色 作用在 _UIVisualEffectSubview上：</p>
 <p><img src="/2017/12/25/iOS_NavigationBar1/barTintColor_1.png" alt="barTintColor_1"></p>
 <h5 id="2-设置barTintColor，并且-isTranslucent-false，运行效果同上，但是-层次结构如下：-原因后面说明"><a href="#2-设置barTintColor，并且-isTranslucent-false，运行效果同上，但是-层次结构如下：-原因后面说明" class="headerlink" title="(2) 设置barTintColor，并且 isTranslucent = false，运行效果同上，但是 层次结构如下：(原因后面说明)"></a>(2) 设置barTintColor，并且 isTranslucent = false，运行效果同上，但是 层次结构如下：(原因后面说明)</h5><p><img src="/2017/12/25/iOS_NavigationBar1/barTintColor_translucentFalse_2.png" alt="barTintColor_translucentFalse_2"></p>
-<p><br></p>
+<p>&lt;/br&gt;</p>
 <h4 id="5-visualEffectView"><a href="#5-visualEffectView" class="headerlink" title="5.  visualEffectView"></a>5.  <strong>visualEffectView</strong></h4><h5 id="1-假设-isTranslucent-true-。"><a href="#1-假设-isTranslucent-true-。" class="headerlink" title="(1) 假设 isTranslucent = true 。"></a>(1) 假设 isTranslucent = true 。</h5><p>如果没有 BackgroundImage，navigationBar 子视图包含了 visualEffectView 用来产生模糊效果。<br>如果设置 BackgroundImage，navigationBar 子视图不会包含 visualEffectView，而是直接生成一个半透明的背景图。</p>
 <h5 id="2-假设-isTranslucent-false-。"><a href="#2-假设-isTranslucent-false-。" class="headerlink" title="(2) 假设 isTranslucent = false 。"></a>(2) 假设 isTranslucent = false 。</h5><p>navigationBar 子视图不会包含 visualEffectView</p>
-<p><br></p>
+<p>&lt;/br&gt;</p>
 
       
 
@@ -765,50 +856,50 @@
 <p><br></p>
 <h3 id="系统环境配置"><a href="#系统环境配置" class="headerlink" title="系统环境配置"></a><strong>系统环境配置</strong></h3><hr>
 <p>开始的第一步，就是做好准备工作，为你的电脑配置好hexo需要的东西： git 和 node.js (文中使用的操作系统：MAC OS系统)</p>
-<p>1.安装 <a href="https://git-scm.com/download/" target="_blank" rel="external">github</a><br>2.安装 node.js<br>    —— 可以通过 <a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="external">homebrew</a> (是Mac OSX上的软件包管理工具) 来安装，首先通过 brew -v 来看是否已安装了homebrew, 如果没有，通过如下命令安装：</p>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
-<p> —— 然后安装node.js, 0.6.3版本开始內建 npm,无需再安装npm,  npm(node parkage manager),是 Node.js 的套件（package）管理工具，</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">brew uninstall node （如果之前安装过可以通过此命令先卸载，再安装)</div><div class="line">brew install node</div></pre></td></tr></table></figure>
+<p>1.安装 <a href="https://git-scm.com/download/" target="_blank" rel="noopener">github</a><br>2.安装 node.js<br>    ——— 可以通过 <a href="https://brew.sh/index_zh-cn.html" target="_blank" rel="noopener">homebrew</a> (是Mac OSX上的软件包管理工具) 来安装，首先通过 brew -v 来看是否已安装了homebrew, 如果没有，通过如下命令安装：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
+<p> ——— 然后安装node.js, 0.6.3版本开始內建 npm,无需再安装npm,  npm(node parkage manager),是 Node.js 的套件（package）管理工具，</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew uninstall node （如果之前安装过可以通过此命令先卸载，再安装)</span><br><span class="line">brew install node</span><br></pre></td></tr></table></figure>
 <h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a><strong>安装hexo</strong></h3><hr>
-<p>现在可以开始安装hexo了,输入如下命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g</div></pre></td></tr></table></figure></p>
-<p>但是在这里出现了问题： error: permission denied<br>解决方法：加上了sudo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo npm install hexo-cli -g</div></pre></td></tr></table></figure></p>
-<p>接着，我们需要为hexo新建一个文件夹：yourHexo。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd yourHexo</div><div class="line">hexo init</div></pre></td></tr></table></figure></p>
-<p>操作完这些，你会在你创建的yourHexo的文件夹里出现了很多文件，文档。这里安装的过程就完成了<br><br></p>
+<p>现在可以开始安装hexo了,输入如下命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<p>但是在这里出现了问题： error: permission denied<br>解决方法：加上了sudo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<p>接着，我们需要为hexo新建一个文件夹：yourHexo。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd yourHexo</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure></p>
+<p>操作完这些，你会在你创建的yourHexo的文件夹里出现了很多文件，文档。这里安装的过程就完成了<br>&lt;/br&gt;</p>
 <h3 id="本地预览"><a href="#本地预览" class="headerlink" title="本地预览"></a><strong>本地预览</strong></h3><hr>
-<p>现在打开本地server，这里要注意以后每次本地预览的时候都要打开的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo server</div></pre></td></tr></table></figure></p>
-<p>这时你可以访问 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 看你的博客效果了。<br><br></p>
+<p>现在打开本地server，这里要注意以后每次本地预览的时候都要打开的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure></p>
+<p>这时你可以访问 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 看你的博客效果了。<br>&lt;/br&gt;</p>
 <h3 id="github"><a href="#github" class="headerlink" title="github"></a><strong>github</strong></h3><hr>
-<p>如果你也和我一样没有购买域名，而是打算用github的免费域名，首先登录你自己的<a href="https://github.com/" target="_blank" rel="external">github</a>账号，创建新的repository,如下图，在repository name 那一栏写上你的域名，不过这个域名的格式有严格规定，就是</p>
+<p>如果你也和我一样没有购买域名，而是打算用github的免费域名，首先登录你自己的<a href="https://github.com/" target="_blank" rel="noopener">github</a>账号，创建新的repository,如下图，在repository name 那一栏写上你的域名，不过这个域名的格式有严格规定，就是</p>
 <blockquote>
 <p>用自己的github用户名 + github.io 作为你的域名</p>
 </blockquote>
 <p><img src="/2017/01/09/howToCreateABlog/ScreenShot_git.png" alt="image-Git"></p>
-<p><br></p>
+<p>&lt;/br&gt;</p>
 <h3 id="配置属性"><a href="#配置属性" class="headerlink" title="配置属性"></a><strong>配置属性</strong></h3><hr>
-<p>现在你看到的博客都不是自己的信息吧，现在在你的yourHexo文件中找到一个文件：_config.yml,这个就是配置博客属性的文件，可以根据自己的喜好来设置了。<br>尤其要主要deploy这部分，把上面新建的repository的链接填在这个配置文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy: </div><div class="line">type: git</div><div class="line">repository: https://github.com/saltpaper/saltpape.github.io.git</div><div class="line">branch: master</div></pre></td></tr></table></figure></p>
-<p><br></p>
+<p>现在你看到的博客都不是自己的信息吧，现在在你的yourHexo文件中找到一个文件：_config.yml,这个就是配置博客属性的文件，可以根据自己的喜好来设置了。<br>尤其要主要deploy这部分，把上面新建的repository的链接填在这个配置文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">type: git</span><br><span class="line">repository: https://github.com/saltpaper/saltpape.github.io.git</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure></p>
+<p>&lt;/br&gt;</p>
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a><strong>部署</strong></h3><hr>
-<p>现在我们就可以把博客部署到github上:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate</div><div class="line">hexo deploy</div></pre></td></tr></table></figure></p>
+<p>现在我们就可以把博客部署到github上:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></p>
 <p>在执行 hexo deploy后 出现错误：error deployer not found:git，说明并没有安装 hexo-deployer-git,也可以通过package.json查看，输入下方命令安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>（–save：模块名将被添加到dependencies，package.json中可以查看）<br><br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>（–save：模块名将被添加到dependencies，package.json中可以查看）<br>&lt;/br&gt;</p>
 <h3 id="创建编辑博文"><a href="#创建编辑博文" class="headerlink" title="创建编辑博文"></a><strong>创建编辑博文</strong></h3><hr>
 <blockquote>
 <ol>
 <li>创建</li>
 </ol>
 </blockquote>
-<p>在自己的hexo目录下，创建自己的文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo new &quot;博文标题&quot;         #新建博文</div><div class="line">hexo new page &quot;页面标题&quot;    #新建页面</div></pre></td></tr></table></figure></p>
+<p>在自己的hexo目录下，创建自己的文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;博文标题&quot;         #新建博文</span><br><span class="line">hexo new page &quot;页面标题&quot;    #新建页面</span><br></pre></td></tr></table></figure></p>
 <p>将会在 yourHexo\source\ _posts看到这个博文的.md的文本。</p>
 <blockquote>
 <p>2.博文里插入本地图片</p>
 </blockquote>
-<p>首先打开 _config.yml，确定post_asset_folder为true.<br>然后在自己的yourHexo的目录下，执行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</div></pre></td></tr></table></figure></p>
-<p>之后新建的博文BlogA.md的同时也有有一个同名的文件夹BlogA，只要把需要的图片放在里面，然后在.md的文本中用如下方式引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![](博文名BlogA/图片名.png)</div></pre></td></tr></table></figure></p>
-<p><br></p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a><strong>常用命令</strong></h3><p>一些简写命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo g == hexo generate</div><div class="line">hexo s == hexo server</div><div class="line">hexo d == hexo deploy</div></pre></td></tr></table></figure></p>
+<p>首先打开 _config.yml，确定post_asset_folder为true.<br>然后在自己的yourHexo的目录下，执行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure></p>
+<p>之后新建的博文BlogA.md的同时也有有一个同名的文件夹BlogA，只要把需要的图片放在里面，然后在.md的文本中用如下方式引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](博文名BlogA/图片名.png)</span><br></pre></td></tr></table></figure></p>
+<p>&lt;/br&gt;</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a><strong>常用命令</strong></h3><p>一些简写命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure></p>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a><strong>参考资料</strong></h3><blockquote>
-<p><a href="http://wowubuntu.com/markdown/#list" target="_blank" rel="external">markdowm</a><br><a href="http://iissnan.com/progit/" target="_blank" rel="external">pro it</a></p>
+<p><a href="http://wowubuntu.com/markdown/#list" target="_blank" rel="noopener">markdowm</a><br><a href="http://iissnan.com/progit/" target="_blank" rel="noopener">pro it</a></p>
 </blockquote>
 
       
@@ -873,12 +964,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在中心点不变的情况下，将原有矩形进行缩小或放大。<br><br></p>
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-C</div><div class="line"></div><div class="line">func insetBy(dx: CGFloat, dy: CGFloat) -&gt; CGRect                ------ Swift</div></pre></td></tr></table></figure>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-C</span><br><span class="line"></span><br><span class="line">func insetBy(dx: CGFloat, dy: CGFloat) -&gt; CGRect                ------ Swift</span><br></pre></td></tr></table></figure>
 <h3 id="计算原理"><a href="#计算原理" class="headerlink" title="计算原理"></a>计算原理</h3><p>以objective-c为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">CGRect r1 = CGRectMake(x, y, width, height);</div><div class="line">CGRect r3 = CGRectInset(r1, dx, dy);           // dx,dy 可以为负</div><div class="line"></div><div class="line">r3.x = r1.x + dx  </div><div class="line">r3.y = r1.y + dy </div><div class="line">r3.width = r1.width - 2*dx  </div><div class="line">r3.height = r1.height - 2*dy</div></pre></td></tr></table></figure>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CGRect r1 = CGRectMake(30, 40, 100, 80);</div><div class="line">CGRect r3 = CGRectInset(r1, 20, -10);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CGRect r1 = CGRectMake(x, y, width, height);</span><br><span class="line">CGRect r3 = CGRectInset(r1, dx, dy);           // dx,dy 可以为负</span><br><span class="line"></span><br><span class="line">r3.x = r1.x + dx  </span><br><span class="line">r3.y = r1.y + dy </span><br><span class="line">r3.width = r1.width - 2*dx  </span><br><span class="line">r3.height = r1.height - 2*dy</span><br></pre></td></tr></table></figure>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CGRect r1 = CGRectMake(30, 40, 100, 80);</span><br><span class="line">CGRect r3 = CGRectInset(r1, 20, -10);</span><br></pre></td></tr></table></figure>
 <p>如图，蓝色区域是r1,黄色区域是r3<br><img src="/2017/01/05/iOS-CGRectInset/frame.png" alt="frame"></p>
-<h3 id="swift"><a href="#swift" class="headerlink" title="swift"></a>swift</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let rect1 = CGRect.init(x: 30, y: 40, width: 100, height: 80)</div><div class="line">let rect3 = rect.insetBy(dx:  20, dy: -10)</div></pre></td></tr></table></figure>
+<h3 id="swift"><a href="#swift" class="headerlink" title="swift"></a>swift</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let rect1 = CGRect.init(x: 30, y: 40, width: 100, height: 80)</span><br><span class="line">let rect3 = rect.insetBy(dx:  20, dy: -10)</span><br></pre></td></tr></table></figure>
 
       
 
@@ -1044,6 +1135,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ReactNative</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">AI</a>

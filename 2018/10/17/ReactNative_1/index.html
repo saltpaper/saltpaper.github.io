@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Salt and Paper</title>
+  <title>React Native -- 躲过运行的坑 | Salt and Paper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Salt and Paper">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="因工作的原因从iOS native开始做React Native， 之前一点web的底子都没有， javascript也只是写过一两次， 算是从零开始学习。与原生开发比起来，除了同时要兼顾两个平台，并且把React Native的程序运行起来，都比原生的需要更多的步骤也会遇到更多问题。  如何创建React Native的项目，可以查看官网文档：React Native。现在假设你已经按照步骤可">
+<meta name="keywords" content="ReactNative">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Native -- 躲过运行的坑">
+<meta property="og:url" content="http://yoursite.com/2018/10/17/ReactNative_1/index.html">
 <meta property="og:site_name" content="Salt and Paper">
+<meta property="og:description" content="因工作的原因从iOS native开始做React Native， 之前一点web的底子都没有， javascript也只是写过一两次， 算是从零开始学习。与原生开发比起来，除了同时要兼顾两个平台，并且把React Native的程序运行起来，都比原生的需要更多的步骤也会遇到更多问题。  如何创建React Native的项目，可以查看官网文档：React Native。现在假设你已经按照步骤可">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/10/17/ReactNative_1/rn_1_2.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/17/ReactNative_1/rn_1_1.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/17/ReactNative_1/rn_1_3.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/17/ReactNative_1/rn_1_4.png">
+<meta property="og:updated_time" content="2018-10-21T10:15:07.904Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Salt and Paper">
+<meta name="twitter:title" content="React Native -- 躲过运行的坑">
+<meta name="twitter:description" content="因工作的原因从iOS native开始做React Native， 之前一点web的底子都没有， javascript也只是写过一两次， 算是从零开始学习。与原生开发比起来，除了同时要兼顾两个平台，并且把React Native的程序运行起来，都比原生的需要更多的步骤也会遇到更多问题。  如何创建React Native的项目，可以查看官网文档：React Native。现在假设你已经按照步骤可">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/17/ReactNative_1/rn_1_2.png">
   
     <link rel="alternative" href="/atom.xml" title="Salt and Paper" type="application/atom+xml">
   
@@ -150,36 +160,67 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ReactNative_1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/17/ReactNative_1/" class="archive-article-date">
-  	<time datetime="2018-10-17T10:52:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/17/ReactNative_1/">React Native -- 躲过运行的坑</a>
+    <h1 class="article-title" itemprop="name">
+      React Native -- 躲过运行的坑
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/10/17/ReactNative_1/" class="archive-article-date">
+  	<time datetime="2018-10-17T10:52:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>因工作的原因从iOS native开始做React Native， 之前一点web的底子都没有， javascript也只是写过一两次， 算是从零开始学习。与原生开发比起来，除了同时要兼顾两个平台，并且把React Native的程序运行起来，都比原生的需要更多的步骤也会遇到更多问题。</p>
+</blockquote>
+<p>如何创建React Native的项目，可以查看官网文档：<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">React Native</a>。<br>现在假设你已经按照步骤可以运行起来一个刚创建的项目，但是可能你需要去运行比较复杂的project, 或是遇到iOS和Android只有一方可以成功的情况，亦或是昨天还可以运行，过了一晚就出现了error, 这里总结一些用到的方法：</p>
+<h5 id="1-最常用的几句命令行"><a href="#1-最常用的几句命令行" class="headerlink" title="1. 最常用的几句命令行"></a>1. 最常用的几句命令行</h5><p>首先最应该排除的以下这几种情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">watchman watch-del-all  // =&gt; 直到 root = [ ]这个中括号里面没有东西为止，多次command 这个命令就可以。</span><br><span class="line">rm -rf node_modules &amp;&amp; yarn  // 删除 node_modules，然后重新安装: yarn 或是 npm install</span><br><span class="line">yarn cache clean  //清除本地缓存</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-第一次运行iOS："><a href="#2-第一次运行iOS：" class="headerlink" title="2. 第一次运行iOS："></a>2. 第一次运行iOS：</h5><p>如果有cocoapod,需要先安装 cocoapod<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install cocoapods   // 安装</span><br><span class="line">cd ios   </span><br><span class="line">pod install                 // 安装iOS里面的需要的library</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-第一次安装到Android真机上"><a href="#3-第一次安装到Android真机上" class="headerlink" title="3. 第一次安装到Android真机上"></a>3. 第一次安装到Android真机上</h5><p>首先要到手机setting -&gt; 开启开发者选项。<br>然后遇到一个关于<code>Adb install failure</code>的问题，如下图<br><img src="/2018/10/17/ReactNative_1/rn_1_2.png" alt="Adb install failure"><br><a href="https://stackoverflow.com/questions/37641670/adb-install-failure-install-canceled-by-user?utm_medium=organic&amp;utm_source=google_rich_qa&amp;utm_campaign=google_rich_qa" target="_blank" rel="noopener">参考资料</a>， 最后我的处理是红米手机(RedMi)关闭 MIUI就可以了。(不同机型不同)</p>
+<h5 id="4-仅仅Android上出现："><a href="#4-仅仅Android上出现：" class="headerlink" title="4. 仅仅Android上出现："></a>4. 仅仅Android上出现：</h5><p><code>Installation error: INSTALL_FAILED_VERSION_DOWNGRADE</code>，产生这个问题是因为之前手机已经安装过同包名的应用<br><img src="/2018/10/17/ReactNative_1/rn_1_1.png" alt="INSTALL_FAILED_VERSION_DOWNGRADE"><br>最简单粗暴的就是删除后再安装啦！</p>
+<p>关于<code>adb not found</code> 问题<br>首先安装adb: 打开 Android Studio: Tools -&gt; SDK Manager -&gt; SDK Tools -&gt;  Android SDK Build-Tools(在此安装)<br>可以在路径：Users/$UserName/Library/Android/sdk/platform-tools 查看到adb, 然后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export PATH=&quot;$PATH:/Users/$UserName/Library/Android/sdk/platform-tools”    //放到root下的.bash_profile文件中</span><br><span class="line"></span><br><span class="line">//reload profile</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>( ~/.bash_profile: 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次。默认情况下,设置一些环境变量,执行用户的.bashrc文件。)</p>
+<h5 id="5-仅仅iOS上出现的："><a href="#5-仅仅iOS上出现的：" class="headerlink" title="5. 仅仅iOS上出现的："></a>5. 仅仅iOS上出现的：</h5><p> 出现<code>No bundle URL present</code>,这个也是出现概率挺高的error:<br><img src="/2018/10/17/ReactNative_1/rn_1_3.png" alt="No bundle URL present"><br>处理方法： 重新yarn或是npm intall ,如果还不行： 找到 project路径里的 ios/build/Build 文件，删除 ‘Build’ folder, 再运行就可以了。</p>
+<p><img src="/2018/10/17/ReactNative_1/rn_1_4.png" alt="not found for architecture"><br>主要根据这个提示： “ The following build commands failed:<br>     Ld /Users/user/$projectName/ios/build/Build/Products/Debug-iphonesimulator/React/React.framework/React normal x86_64”<br>同上，找到 project路径里的 ios/build/Build 文件，删除 ‘Build’ folder, 再运行就可以了。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,322 +232,106 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/19/ML_Ng_Week1_2/" class="archive-article-date">
-  	<time datetime="2018-08-19T11:32:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/19/ML_Ng_Week1_2/">吴恩达机器学习笔记week1 -- Linear Regression with One Variable (单变量线性回归)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/10/ML_Ng_Week1_1/" class="archive-article-date">
-  	<time datetime="2018-06-10T07:20:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/10/ML_Ng_Week1_1/">吴恩达机器学习笔记1 -- 初始机器学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/25/iOS_CalculateFPS/" class="archive-article-date">
-  	<time datetime="2018-03-25T03:33:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/25/iOS_CalculateFPS/">iOS 开发中如何查看FPS</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/11/iOS_vapor2/" class="archive-article-date">
-  	<time datetime="2018-02-11T09:08:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/11/iOS_vapor2/">Vapor： 开始一个新的工程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/02/09/iOS_vapor1/" class="archive-article-date">
-  	<time datetime="2018-02-09T06:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/02/09/iOS_vapor1/">Vapor 安装篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/25/iOS_NavigationBar1/" class="archive-article-date">
-  	<time datetime="2017-12-25T03:22:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/25/iOS_NavigationBar1/">关于Navigation Bar 的相关设置 (一)</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/17/ReactNative_1/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/09/howToCreateABlog/" class="archive-article-date">
-  	<time datetime="2017-01-09T09:37:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/19/ML_Ng_Week1_2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">吴恩达机器学习笔记week1 -- Linear Regression with One Variable (单变量线性回归)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/09/howToCreateABlog/">使用hexo + github搭建个人博客</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/01/05/iOS-CGRectInset/" class="archive-article-date">
-  	<time datetime="2017-01-05T09:47:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/01/05/iOS-CGRectInset/">CGRectInset</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -529,8 +354,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

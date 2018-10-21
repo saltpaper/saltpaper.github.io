@@ -180,22 +180,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>在过去的一年里，国外的 Mybridge 对将近 6000 个 Swift 开源库进行了筛选和比较，以受欢迎程度和新近度为标准，挑选出了在 2017 年 1 月至 12 月发布的前 30 个库或项目，而第一个就是<a href="https://github.com/vapor/vapor" target="_blank" rel="external">Vapor</a>.<br>Vapor是一个适用于 MacOS 和 Ubuntu 服务器端的 Swift Web 框架，对于iOS的开发者，可以尝试用Swift来编写后台，也是一次不错的尝试。</p>
+<p>在过去的一年里，国外的 Mybridge 对将近 6000 个 Swift 开源库进行了筛选和比较，以受欢迎程度和新近度为标准，挑选出了在 2017 年 1 月至 12 月发布的前 30 个库或项目，而第一个就是<a href="https://github.com/vapor/vapor" target="_blank" rel="noopener">Vapor</a>.<br>Vapor是一个适用于 MacOS 和 Ubuntu 服务器端的 Swift Web 框架，对于iOS的开发者，可以尝试用Swift来编写后台，也是一次不错的尝试。</p>
 </blockquote>
-<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><h3 id="1-安装Swift"><a href="#1-安装Swift" class="headerlink" title="1.  安装Swift"></a>1.  安装Swift</h3><p>提供两种方法：<br>     (1) 可以通过安装xcode8来安装swift3<br>     (2)安装Swiftenv，使用Swiftenv可以很轻松的安装Swift，并且可以在多个版本间切换，在终端里运行如下代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> https://github.com/kylef/swiftenv.git ~/.swiftenv</div></pre></td></tr></table></figure></p>
+<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><h3 id="1-安装Swift"><a href="#1-安装Swift" class="headerlink" title="1.  安装Swift"></a>1.  安装Swift</h3><p>提供两种方法：<br>     (1) 可以通过安装xcode8来安装swift3<br>     (2)安装Swiftenv，使用Swiftenv可以很轻松的安装Swift，并且可以在多个版本间切换，在终端里运行如下代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/kylef/swiftenv.git ~/.swiftenv</span><br></pre></td></tr></table></figure></p>
 <p>然后在bash文件中初始化Swiftenv，bash文件就是存放bash属性与一些设置的地方。在终端里使用如下命令打开bash文件:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ open ~/.bash_profile</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ open ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>open指令会使用TextEdit打开你的bash文件，若没有bash文件，使用如下指令创建它:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch ~/.bash_profile</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ touch ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>打开bash文件后，复制如下命令，用来初始化Swiftenv。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexport SWIFTENV_ROOT=&quot;$HOME/.swiftenv&quot;</div><div class="line">export PATH=&quot;$SWIFTENV_ROOT/bin:$PATH&quot;</div><div class="line">eval &quot;$(swiftenv init -)&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexport SWIFTENV_ROOT=&quot;$HOME/.swiftenv&quot;</span><br><span class="line">export PATH=&quot;$SWIFTENV_ROOT/bin:$PATH&quot;</span><br><span class="line">eval &quot;$(swiftenv init -)&quot;</span><br></pre></td></tr></table></figure>
 <p>你的bash文件(在TextEdit中打开)中现在应该包含了这些命令。注意有些情况下bash文件可能包含其他命令。不要删掉之前的命令，在文件末端添加新的即可。</p>
 <h3 id="2-完整性检查"><a href="#2-完整性检查" class="headerlink" title="2. 完整性检查"></a>2. 完整性检查</h3><p>   Vapor需要合适的Swift版本才能正常启动，Vapor提供了一个shell脚本来用于检验完整性，执行如下命令来确保万事俱备:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -sL check.vapor.sh | bash</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -sL check.vapor.sh | bash</span><br></pre></td></tr></table></figure>
 <p>若显示出绿色箭头的emoji表情，就表示准备好安装Vapor了!<br><img src="/2018/02/09/iOS_vapor1/vapor1_check.png" alt="vapor1_check"></p>
 <h3 id="3-安装vapor"><a href="#3-安装vapor" class="headerlink" title="3. 安装vapor"></a>3. 安装vapor</h3><p>查找的之前的方式，安装vapor1.0的版本，如下，提示方法已经不能用了<br><img src="/2018/02/09/iOS_vapor1/vapor1_failure.png" alt="vapor1_failure"></p>
-<p>swift 3.1以后<a href="https://docs.vapor.codes/2.0/getting-started/install-on-macos/" target="_blank" rel="external">参考</a><br>前提是 已经安装好 homebrew, 然后运行下面命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">brew tap vapor/homebrew-tap</div><div class="line">brew update</div><div class="line">brew install vapor   //（安装了两次，网络问题又试了一次）</div></pre></td></tr></table></figure>
+<p>swift 3.1以后<a href="https://docs.vapor.codes/2.0/getting-started/install-on-macos/" target="_blank" rel="noopener">参考</a><br>前提是 已经安装好 homebrew, 然后运行下面命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew tap vapor/homebrew-tap</span><br><span class="line">brew update</span><br><span class="line">brew install vapor   //（安装了两次，网络问题又试了一次）</span><br></pre></td></tr></table></figure>
 <p><img src="/2018/02/09/iOS_vapor1/vapor1_install.png" alt="vapor1_install"></p>
 
       
@@ -457,6 +457,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ReactNative</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">AI</a>

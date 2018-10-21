@@ -178,12 +178,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在中心点不变的情况下，将原有矩形进行缩小或放大。<br><br></p>
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-C</div><div class="line"></div><div class="line">func insetBy(dx: CGFloat, dy: CGFloat) -&gt; CGRect                ------ Swift</div></pre></td></tr></table></figure>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-C</span><br><span class="line"></span><br><span class="line">func insetBy(dx: CGFloat, dy: CGFloat) -&gt; CGRect                ------ Swift</span><br></pre></td></tr></table></figure>
 <h3 id="计算原理"><a href="#计算原理" class="headerlink" title="计算原理"></a>计算原理</h3><p>以objective-c为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">CGRect r1 = CGRectMake(x, y, width, height);</div><div class="line">CGRect r3 = CGRectInset(r1, dx, dy);           // dx,dy 可以为负</div><div class="line"></div><div class="line">r3.x = r1.x + dx  </div><div class="line">r3.y = r1.y + dy </div><div class="line">r3.width = r1.width - 2*dx  </div><div class="line">r3.height = r1.height - 2*dy</div></pre></td></tr></table></figure>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CGRect r1 = CGRectMake(30, 40, 100, 80);</div><div class="line">CGRect r3 = CGRectInset(r1, 20, -10);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CGRect r1 = CGRectMake(x, y, width, height);</span><br><span class="line">CGRect r3 = CGRectInset(r1, dx, dy);           // dx,dy 可以为负</span><br><span class="line"></span><br><span class="line">r3.x = r1.x + dx  </span><br><span class="line">r3.y = r1.y + dy </span><br><span class="line">r3.width = r1.width - 2*dx  </span><br><span class="line">r3.height = r1.height - 2*dy</span><br></pre></td></tr></table></figure>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CGRect r1 = CGRectMake(30, 40, 100, 80);</span><br><span class="line">CGRect r3 = CGRectInset(r1, 20, -10);</span><br></pre></td></tr></table></figure>
 <p>如图，蓝色区域是r1,黄色区域是r3<br><img src="/2017/01/05/iOS-CGRectInset/frame.png" alt="frame"></p>
-<h3 id="swift"><a href="#swift" class="headerlink" title="swift"></a>swift</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let rect1 = CGRect.init(x: 30, y: 40, width: 100, height: 80)</div><div class="line">let rect3 = rect.insetBy(dx:  20, dy: -10)</div></pre></td></tr></table></figure>
+<h3 id="swift"><a href="#swift" class="headerlink" title="swift"></a>swift</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let rect1 = CGRect.init(x: 30, y: 40, width: 100, height: 80)</span><br><span class="line">let rect3 = rect.insetBy(dx:  20, dy: -10)</span><br></pre></td></tr></table></figure>
 
       
 
@@ -439,6 +439,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ReactNative</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">AI</a>
