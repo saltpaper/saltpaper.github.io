@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>CGRectInset | Salt and Paper</title>
+  <title>React Native 性能分析 | Salt and Paper</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在中心点不变的情况下，将原有矩形进行缩小或放大。 声明123CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-Cfunc insetBy(dx: CGFloat, dy: CGFloat) -&amp;gt; CGRect                ------ Swift 计算原理以obj">
-<meta name="keywords" content="iOS">
+  <meta name="description" content="因为最近有在研究React Native的性能问题，在Medium看到一篇文章：React Native Performance Profiling,可能有时你无法正常打开，这里我会把原文贴出并试着翻译下。  在WeDo的过去六个月中，我们一直致力于提升React Native app的性能。 伴随着各种性能问题，profiling is the first step. 在这篇文章中，我将会讲到">
+<meta name="keywords" content="ReactNative">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CGRectInset">
-<meta property="og:url" content="http://yoursite.com/2017/01/05/iOS-CGRectInset/index.html">
+<meta property="og:title" content="React Native 性能分析">
+<meta property="og:url" content="http://yoursite.com/2018/10/18/RN_perf_translation/index.html">
 <meta property="og:site_name" content="Salt and Paper">
-<meta property="og:description" content="在中心点不变的情况下，将原有矩形进行缩小或放大。 声明123CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-Cfunc insetBy(dx: CGFloat, dy: CGFloat) -&amp;gt; CGRect                ------ Swift 计算原理以obj">
+<meta property="og:description" content="因为最近有在研究React Native的性能问题，在Medium看到一篇文章：React Native Performance Profiling,可能有时你无法正常打开，这里我会把原文贴出并试着翻译下。  在WeDo的过去六个月中，我们一直致力于提升React Native app的性能。 伴随着各种性能问题，profiling is the first step. 在这篇文章中，我将会讲到">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2017/01/05/iOS-CGRectInset/frame.png">
-<meta property="og:updated_time" content="2017-01-10T13:35:57.000Z">
+<meta property="og:updated_time" content="2018-10-21T14:47:10.700Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CGRectInset">
-<meta name="twitter:description" content="在中心点不变的情况下，将原有矩形进行缩小或放大。 声明123CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-Cfunc insetBy(dx: CGFloat, dy: CGFloat) -&amp;gt; CGRect                ------ Swift 计算原理以obj">
-<meta name="twitter:image" content="http://yoursite.com/2017/01/05/iOS-CGRectInset/frame.png">
+<meta name="twitter:title" content="React Native 性能分析">
+<meta name="twitter:description" content="因为最近有在研究React Native的性能问题，在Medium看到一篇文章：React Native Performance Profiling,可能有时你无法正常打开，这里我会把原文贴出并试着翻译下。  在WeDo的过去六个月中，我们一直致力于提升React Native app的性能。 伴随着各种性能问题，profiling is the first step. 在这篇文章中，我将会讲到">
   
     <link rel="alternative" href="/atom.xml" title="Salt and Paper" type="application/atom+xml">
   
@@ -157,33 +155,53 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-iOS-CGRectInset" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-RN_perf_translation" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      CGRectInset
+      React Native 性能分析
     </h1>
   
 
         
-        <a href="/2017/01/05/iOS-CGRectInset/" class="archive-article-date">
-  	<time datetime="2017-01-05T09:47:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-05</time>
+        <a href="/2018/10/18/RN_perf_translation/" class="archive-article-date">
+  	<time datetime="2018-10-18T03:43:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在中心点不变的情况下，将原有矩形进行缩小或放大。<br><br></p>
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy);        ------ Objective-C</span><br><span class="line"></span><br><span class="line">func insetBy(dx: CGFloat, dy: CGFloat) -&gt; CGRect                ------ Swift</span><br></pre></td></tr></table></figure>
-<h3 id="计算原理"><a href="#计算原理" class="headerlink" title="计算原理"></a>计算原理</h3><p>以objective-c为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CGRect r1 = CGRectMake(x, y, width, height);</span><br><span class="line">CGRect r3 = CGRectInset(r1, dx, dy);           // dx,dy 可以为负</span><br><span class="line"></span><br><span class="line">r3.x = r1.x + dx  </span><br><span class="line">r3.y = r1.y + dy </span><br><span class="line">r3.width = r1.width - 2*dx  </span><br><span class="line">r3.height = r1.height - 2*dy</span><br></pre></td></tr></table></figure>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CGRect r1 = CGRectMake(30, 40, 100, 80);</span><br><span class="line">CGRect r3 = CGRectInset(r1, 20, -10);</span><br></pre></td></tr></table></figure>
-<p>如图，蓝色区域是r1,黄色区域是r3<br><img src="/2017/01/05/iOS-CGRectInset/frame.png" alt="frame"></p>
-<h3 id="swift"><a href="#swift" class="headerlink" title="swift"></a>swift</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let rect1 = CGRect.init(x: 30, y: 40, width: 100, height: 80)</span><br><span class="line">let rect3 = rect.insetBy(dx:  20, dy: -10)</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>因为最近有在研究React Native的性能问题，在Medium看到一篇文章：<a href="https://medium.com/@adamjacobb/react-native-performance-profiling-32dd00b93351" target="_blank" rel="noopener">React Native Performance Profiling</a>,可能有时你无法正常打开，这里我会把原文贴出并试着翻译下。</p>
+</blockquote>
+<p>在WeDo的过去六个月中，我们一直致力于提升React Native app的性能。 伴随着各种性能问题，profiling is the first step. 在这篇文章中，我将会讲到我们现在用到的分析工具，以及我们是如何利用这些工具建立起未来性能提升的基准。</p>
+<h5 id="1-React-Native-Slowlog"><a href="#1-React-Native-Slowlog" class="headerlink" title="1. React Native Slowlog"></a>1. React Native Slowlog</h5><blockquote>
+<p>React Native Slowlog has been our go to when it comes to view rendering performance. What we specifically liked about this library is the able to set a custom threshold.<br>It couldn’t be easier to use. Just add a single line of code in your views constructor and you will be off to profiling.</p>
+</blockquote>
+<p>我们用<a href="https://github.com/jondot/react-native-slowlog" target="_blank" rel="noopener">React Native Slowlog</a>来查看渲染的性能问题， 我们特别喜欢用这个lib，是因为它可以设置一些自定义的阈值。<br>而且它用起来再容易不过了，仅仅只需要在constructor方法里加一句代码就可以，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slowlog(this, /.*/)</span><br></pre></td></tr></table></figure>
+<h5 id="2-Tracking-Unnecessary-Renders-追踪不必要的render"><a href="#2-Tracking-Unnecessary-Renders-追踪不必要的render" class="headerlink" title="2. Tracking Unnecessary Renders: 追踪不必要的render"></a>2. Tracking Unnecessary Renders: 追踪不必要的render</h5><blockquote>
+<p>This might easily be the biggest issue we faced for most of our react native performance issues. When you have a view unnecessarily rendering it slows everything down. Since we use React Redux within our app we were able to take advantage of a feature on the connection options. When setting the renderCountProp property, React Redux will pass a render count to your view. You can then either log this, display it in your view, or like we did and use React Native Debugger and inspect our components directly.<br>This will give you insight into how many times your view is rendering. Can be the first red flag for tracking down unnecessary renders.</p>
+</blockquote>
+<p>这个可能是对于大部分react native app来说，面对最严重的的的性能问题。 当一个view存在不必要的render,它会使整个app都变慢。因为app用到了react redux，我们可以利用连接选项里的一个功能：当设置<code>renderCountProp</code>时，react redux 将会把渲染的次数传给view，你可以打印出来，或是在view上显示出来，亦或者像我们一样，用React Native Debugger直接检查我们的components.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">connect(stateToProps, dispatchToProps, null, </span><br><span class="line">&#123;renderCountProp: &apos;renderCounter&apos;&#125;)(MyComponent)</span><br></pre></td></tr></table></figure>
+<p>这个方法会非常直观的告诉你这个view被渲染了多少次，可以第一时间追踪到不必要的渲染。</p>
+<h5 id="3-Tracking-State-and-Prop-Changes-追踪State和Prop的变化"><a href="#3-Tracking-State-and-Prop-Changes-追踪State和Prop的变化" class="headerlink" title="3. Tracking State and Prop Changes 追踪State和Prop的变化"></a>3. Tracking State and Prop Changes 追踪State和Prop的变化</h5><blockquote>
+<p>When trying to narrow down what is causing the unnecessary renders above your first line of defense is to monitor your state and prop changes. What we ended up doing was simply just logging a lodash difference comparison on our previous and next state and prop objects in componentWillUpdate. This gave us enough insight into what was changing and what wasn’t.<br>Do take note that difference({},{}) will return an empty array. When React looks at that though {} !== {} thus a re-render. In our case we use Reselect as much as we can, so for us this wasn’t an issue as new objects are never returned unless the data within them has changed.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentWillUpdate(nextProps, nextState)&#123;</span><br><span class="line">  console.log(difference(this.props, nextProps));</span><br><span class="line">  console.log(difference(this.state, nextState));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当试图减少在第一道防线上的不必要的渲染时，你要监视props和state的变化。我们最后所做的只是在<code>componentWillUpdate</code>中简单的打印出 pre state/props 和 next state/props 之间的lodash差异。这样会给我们足够直观的表示出他们哪些变化了，哪些没变化。<br>请注意difference({},{})返回的将是一个空的数组，当发现{} !== {}时 ，它会重新渲染。在我们的案例中我们会尽量使用Reselect，所以除非数据有变否则不会返回一个新的对象。</p>
+<h5 id="4-Redux-Level-Performance-Redux层优化"><a href="#4-Redux-Level-Performance-Redux层优化" class="headerlink" title="4. Redux Level Performance Redux层优化"></a>4. Redux Level Performance Redux层优化</h5><blockquote>
+<p>Most of our performance issues were not on the Redux layer of our app. It was still worth double checking. To do this we used redux-log-slow-reduces. It isn’t the perfect solution (and no longer maintained) but for us it was enough to verify that our reducers were not causing performance issues.</p>
+</blockquote>
+<p>我们app的大部分性能问题都不是发生在redux层面上的，但是它仍然知道再次检查下。为了查看redux层面的性能问题，我们使用了<a href="https://github.com/michaelcontento/redux-log-slow-reducers" target="_blank" rel="noopener">redux-log-slow-reduces</a>, 这不是一个完美的解决方案（）但是对于我们来说它足够验证我们的reducers不会引起性能问题。</p>
+<h5 id="5-Track-your-results-追踪你的结果"><a href="#5-Track-your-results-追踪你的结果" class="headerlink" title="5. Track your results 追踪你的结果"></a>5. Track your results 追踪你的结果</h5><blockquote>
+<p>Don’t make the silly mistake that we did in the beginning and not track your results. We used a lot of these tools listed above to pinpoint our problematic components and views but at the end of the day we were not tracking any of the results. So when it came time to look back and see if our efforts have paid off it was really just up to feel. “Does the app feel faster, more responsive to you” isn’t a great way to track performance. Recently tracking components and views performance within a shared spreadsheet helps us track performance for better or worse.</p>
+</blockquote>
 
       
 
@@ -218,7 +236,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ReactNative</a>
         		</li>
       		
 		</ul>
@@ -274,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/01/05/iOS-CGRectInset/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/18/RN_perf_translation/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,15 +306,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/01/09/howToCreateABlog/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          使用hexo + github搭建个人博客
-        
-      </div>
-    </a>
   
+    <a href="/2018/10/17/ReactNative_1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React Native -- 躲过运行的坑</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
